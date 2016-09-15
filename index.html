@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" style="height: 100%;"> <!--<![endif]-->
+<html lang="en">
+<head>
+
+  <title>Model Viewer</title>
+  <meta charset="utf-8">
+  <meta content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" name="viewport" />
+  <link rel="icon" type="image/png" href="https://london.siggraph.org/wp-content/themes/siggraph/favicon.png" />
+  <link href="css/jquery-ui.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/off-canvas.css?ver=1.5">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/css.css?ver=1.5">
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="css/bootstrap-toggle.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800,700' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="js/three.min.js"></script>
+  <script type="text/javascript" src="js/stats.js"></script>
+  <script type="text/javascript" src="js/dat.gui.min.js"></script>
+  <script src="js/TrackballControls.js"></script>
+  <script src="js/Detector.js"></script>
+  <script src="js/tweenjs-0.6.1.min.js"></script>
+  <script src="js/BlendCharacter.js?ver=1.1"></script>
+  <script src="js/AnimationClipCreator.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+  <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+
+  <script>
+    /*! modernizr 3.3.1 (Custom Build) | MIT *
+     * http://modernizr.com/download/?-webgl-webglextensions-setclasses !*/
+    !function(e,n,t){function o(e,n){return typeof e===n}function s(){var e,n,t,s,a,i,c;for(var f in l)if(l.hasOwnProperty(f)){if(e=[],n=l[f],n.name&&(e.push(n.name.toLowerCase()),n.options&&n.options.aliases&&n.options.aliases.length))for(t=0;t<n.options.aliases.length;t++)e.push(n.options.aliases[t].toLowerCase());for(s=o(n.fn,"function")?n.fn():n.fn,a=0;a<e.length;a++)i=e[a],c=i.split("."),1===c.length?Modernizr[c[0]]=s:(!Modernizr[c[0]]||Modernizr[c[0]]instanceof Boolean||(Modernizr[c[0]]=new Boolean(Modernizr[c[0]])),Modernizr[c[0]][c[1]]=s),r.push((s?"":"no-")+c.join("-"))}}function a(e){var n=f.className,t=Modernizr._config.classPrefix||"";if(u&&(n=n.baseVal),Modernizr._config.enableJSClass){var o=new RegExp("(^|\\s)"+t+"no-js(\\s|$)");n=n.replace(o,"$1"+t+"js$2")}Modernizr._config.enableClasses&&(n+=" "+t+e.join(" "+t),u?f.className.baseVal=n:f.className=n)}function i(){return"function"!=typeof n.createElement?n.createElement(arguments[0]):u?n.createElementNS.call(n,"http://www.w3.org/2000/svg",arguments[0]):n.createElement.apply(n,arguments)}var r=[],l=[],c={_version:"3.3.1",_config:{classPrefix:"",enableClasses:!0,enableJSClass:!0,usePrefixes:!0},_q:[],on:function(e,n){var t=this;setTimeout(function(){n(t[e])},0)},addTest:function(e,n,t){l.push({name:e,fn:n,options:t})},addAsyncTest:function(e){l.push({name:null,fn:e})}},Modernizr=function(){};Modernizr.prototype=c,Modernizr=new Modernizr;var f=n.documentElement,u="svg"===f.nodeName.toLowerCase();Modernizr.addTest("webgl",function(){var n=i("canvas"),t="probablySupportsContext"in n?"probablySupportsContext":"supportsContext";return t in n?n[t]("webgl")||n[t]("experimental-webgl"):"WebGLRenderingContext"in e}),Modernizr.addAsyncTest(function(){if(Modernizr.webglextensions=new Boolean(!1),Modernizr.webgl){var e,n,o;try{e=i("canvas"),n=e.getContext("webgl")||e.getContext("experimental-webgl"),o=n.getSupportedExtensions()}catch(s){return}n!==t&&(Modernizr.webglextensions=new Boolean(!0));for(var a=-1,r=o.length;++a<r;)Modernizr.webglextensions[o[a]]=!0;e=t}}),s(),a(r),delete c.addTest,delete c.addAsyncTest;for(var p=0;p<Modernizr._q.length;p++)Modernizr._q[p]();e.Modernizr=Modernizr}(window,document);
+  </script>
+
+</head>
+
+<body id="body" class="header-inactive loaded hide_overlay hide_subscription webgl notmobile withwebgl half">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '873945512734422',
+        xfbml      : true,
+        version    : 'v2.6'
+      });
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <div id="choosescene" style="display:none;">
+    <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="https://london.siggraph.org/">
+            <img src="image/LondonChapterLogo_red.svg" alt="Siggraph">
+          </a>
+        </div>
+      </div>
+    </div><!-- end .navbar -->
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 " id="box1">
+          <a id="scene1" class="moving-image-hover model-selection">
+            <div class="static-image"><img src="gif/short-scn-1.png"/></div>
+            <div class="moving-image-1"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+          		<div class="title-wrap"><div class="title-inner">Animation by Chris Wright<br/>How To Annoy A Guard</div></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 " id="box1">
+          <a id="scene2" class="moving-image-hover model-selection">
+            <div class="static-image"><img src="gif/short-scn-2.png"/></div>
+            <div class="moving-image-2"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap"><div class="title-inner">Animation by Martin Rossi<br/>How To Annoy A Guard</div></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 " id="box1">
+          <a id="scene3" class="moving-image-hover model-selection">
+            <div class="static-image"><img src="gif/short-scn-3.png"/></div>
+            <div class="moving-image-3"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap"><div class="title-inner">Animation by Owen Fern<br/>How To Annoy A Guard</div></div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 scene4-mobile" id="box1">
+          <a id="scene4" class="moving-image-hover model-selection">
+            <div class="static-image"><img src="gif/short-scn-4.png"/></div>
+            <div class="moving-image-4"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap"><div class="title-inner">Animation by Edward Swain<br/>How To Annoy A Guard</div></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 " id="box1">
+          <a id="scene5" class="moving-image-hover model-selection">
+            <div class="static-image"><img src="gif/short-scn-5.png"/></div>
+            <div class="moving-image-5"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap"><div class="title-inner">Animation by James Bown<br/>How To Annoy A Guard</div></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4" id="box1">
+          <a id="scene6" class="moving-image-hover model-selection">
+            <div class="static-image"><img src="gif/short-scn-6.png"/></div>
+            <div class="moving-image-6"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap">
+                <div class="title-inner">Animation by Davide Cioffi<br/>How To Annoy A Guard</div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4" id="box1">
+          <a id="scene7" class="moving-image-hover model-selection">
+            <div class="static-image">
+              <img src="gif/short-scn-7.png"/>
+            </div>
+            <div class="moving-image-7"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap">
+                <div class="title-inner">Animation by Joe Darko<br/>How To Annoy A Guard</div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4" id="box1">
+          <a id="scene8" class="moving-image-hover model-selection">
+            <div class="static-image">
+              <img src="gif/short-scn-8.png"/>
+            </div>
+            <div class="moving-image-8"></div>
+            <div id="overlay1">
+              <div class="overlay-inner"></div>
+              <div class="title-wrap">
+                <div class="title-inner">Animation by Omid Rajabalipour<br/>How To Annoy A Guard</div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="loading-background2" style="display:block;">
+    <table class="progressbar-table">
+      <tr><td>
+        <div id="progress2" style="display: block;">
+          <span id="message2">Loading the page</span>
+          <center>
+            <div id="progressbar2">
+              <div id="bar2" style="width: 12px;"></div>
+            </div>
+          </center>
+        </div>
+      </td></tr>
+    </table>
+  </div>
+
+  <div id="webglscene" style="display:block;">
+    <div id="loading-background" style="display:block;">
+      <table class="progressbar-table">
+        <tr><td>
+          <div id="fx-tag"><img src="image/FX_White_Logo.svg" alt="Siggraph" height="100px"></div>
+          <div id="progress" style="display: block;">
+            <span id="message"><div class="fx-name">FX DIGITAL</div><div class="fxtag">INTERACTIVE 3D WEB CONTENT</div></span>
+            <center>
+      				<div id="progressbar">
+                <div id="bar" style="width: 12px;"></div>
+              </div>
+        		</center>
+        	</div>
+        </td></tr>
+      </table>
+    </div>
+
+    <div id="navbar-webglscene" class="navbar navbar-default navbar-fixed-top " style="display:none;">
+      <div class="container-fluid" >
+        <div class="col-xs-6 col-sm-3">
+          <div class="navbar-header">
+            <a target="_blank" class="navbar-brand" href="https://london.siggraph.org/">
+              <img src="image/LondonChapterLogo_red.svg" alt="Siggraph">
+            </a>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-9">
+          <div id="new-toggle-icon" >
+            <a  class="menu-icon-expand">
+              <div class="icon-plus">
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end .navbar -->
+
+    <div id="right-half"class="right-half">
+      <div class="description-content">
+        <div class="animation-description-top">
+          <div id="new-toggle-icon">
+            <a id="new-toggle-menu" class="toggle-icon">
+              <div class="icon-minus">
+              </div>
+            </a>
+          </div>
+          <div class="first-block">
+              <div class="animation-title-wrap">
+
+                <div class="ani-subtitle">
+                  <a id="viewModelBtn"><img src="image/view-model-icon.svg" alt="weblink" width="20px;">View Other Models</a>
+                </div>
+              </div>
+          </div>
+          <div class="second-block">
+            <div class="ani-title">
+              How To Annoy A Guard
+            </div>
+            <div class="video-title-line"><hr></div>
+            <div class="video-title">
+              BYOA@ZED<br/>Behind the Scenes
+            </div>
+          </div>
+          <div class="scene-video-wrap">
+            <div class="scene-video">
+              <iframe src="https://player.vimeo.com/video/110791132" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="animation-description">
+          <div class="description">
+              <div class="animator-name"></div>
+              <div class="showreel-link">
+                <div>  <div class="in-showreel-link"></div></div>
+              </div>
+              <div class="portfolio-link">
+                <div> <div class="in-website-link"></div></div>
+              </div>
+              <div class="linkedin-link">
+                <div> <div class="in-linkedin-link"></div></div>
+              </div>
+              <hr>
+              <div class="share-link">
+                <div class="share-title"><h2>Share This Experience</h2></div><div class="share-button"> <div class="twitter-link"></div><div class="facebook-link"></div></div>
+              </div>
+              <div class="subscribe-link" id="subscribe">
+                <a><img src="image/newsletter-icon.svg" alt="newsletterlink" width="15px;">Subscribe to the London ACM SIGGRAPH  Newsletter<br/></a>
+              </div>
+          </div>
+        </div>
+        <div class="fx-link">
+          <div class="fx-link-inner"><a href="http://wearefx.co.uk/" target="blank">Interactive 3D web content</a> developed by FX Digital</div>
+          <a href="http://wearefx.co.uk/" target="blank"><img src="image/fx_logo.svg" alt="fx_icon" width="30px"/></a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div id="cover">
+      <div id="infocontent">
+        <div class="text">View Port Control</div>
+        <div class="imageContainer">
+          <div class="controlImage">
+            <img src="image/control1.png" width="250px">
+          </div>
+          <div class="verticalDiv"></div>
+          <div class="controlImage">
+            <img src="image/control2.png" width="250px">
+          </div>
+        </div>
+
+        <div>
+          <div style="width:600px;" class="text">About the Model<br/>The model is from the example of thee.js</div>
+          <div style="width:130px;margin:auto;">
+            <div class="popupBtn" >
+              <a href="#" class="cta cta-standard-tran">Got it!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="subscription-cover">
+      <div class="sign-up-wrap">
+          <div class="signup">
+            <a><i class="fa fa-times opacitysimple"></i></a>
+            <div id="mc_embed_signup_sig">
+              <form action="newsletter.php" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+                  <div class="title-container">
+                    <a class="mobile-bcak-btn" href="#">&#8592;back</a>
+                    <div class="form-title"><h2>Subscribe to the London ACM SIGGRAPH Newsletter</h2></div>
+                    <div class="form-subtitle">Enter your email address and name and receive all the latest news about upcoming events.</div>
+                  </div>
+                  <div class="form-fields">
+                    <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                    <div class="mc-field-group ">
+                      <label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
+                      <input type="email" value="" name="email" class="required email" id="mce-EMAIL">
+                    </div>
+                  </div><!--end form field -->
+                  <div class="clear">
+                    <div class="sumbit-button">
+                      <input type="submit" value="Continute" name="subscribe" id="mc-embedded-subscribe" class="button">
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div style="display:none;" id="Stats-output"></div>
+
+    <!-- Div which will hold the Output -->
+    <div class="output-warp"><div id="WebGL-output"><canvas id="mycanvas"></canvas></div></div>
+
+    <div id="ui" style="display:none;">
+
+        <div class="ui-inner">
+
+          <div class="container-fluid">
+            <div class="col-xs-12 col-sm-12 col-lg-9">
+
+              <div class="speed-control">
+                <div id="sliderDiv">
+                  <div id="slider"></div>
+                </div>
+
+                <div id="speedDiv">
+                  <ul>
+                    <li id="play-btn" class="play-alt play-pause" ><a class="play">&nbsp;</a></li>
+                    <li id="pause-btn" class="pause-alt play-pause"><a class="play">&nbsp;</a></li>
+                    <li class="speed"><a id="slow" onclick="onSlowAnimation()">Slow</a></li>
+                    <li class="divide">|</li>
+                    <li  class="speed"><a id="medium" onclick="onMediumAnimation()">Medium</a></li>
+                    <li class="divide">|</li>
+                    <li class="speed "><a id="fast" onclick="onFastAnimation()" >Fast</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-3">
+              <div class="wireframe-control">
+                <div class="wireframe-wrap">
+                  <span>Wireframe</span>
+                  <div class="wireframe-checkbox">
+                    <input class="checkbox-custom" type="checkbox" id="wireframeCheck" >
+                    <input class="checkbox-custom2" type="checkbox" onchange="toggle_wireframecheck.call(this)" data-toggle="toggle" data-style="ios" data-on=" " data-off=" " data-size="mini">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- end ui-inner -->
+      </div>
+    </div>
+  </div>
+  <!-- when in mobile, show message -->
+  <div id="inmobile" >
+    <table class="bg-image">
+      <tr>
+        <td>
+          <div class="message" id="inmobile-message">
+          This experience is best viewed on large screens rather than on mobile. If you wish to try, please click <a>here</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div id="nowebgl">
+    <table class="bg-image">
+      <tr>
+        <td>
+          <div class="message">
+            <div class="title">No WebGL</div>
+            <div class="description">This experience is only available in browsers with WebGL. Please install Chrome for the experience. </div>
+            <div class="button"><a href="https://www.google.com/chrome/" target="blank" >Install Chrome >></a></div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script type="text/javascript" src="js/js.js?ver=1.7"></script>
+
+  <script>
+    var bar2 = 50;
+    var isMobile = false; //initiate as false
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+       isMobile = true;
+       mobilechecked = true;
+       bar2 += 50;
+       document.getElementById("bar2").style.width = bar2 + "px";
+       jQuery('body').addClass('ismobile');
+       jQuery('body').removeClass('half');
+       jQuery('body').addClass('hide_menu');
+    } else {
+      bar2 = bar2 + 50;
+      document.getElementById("bar2").style.width = bar2 + "px";
+    }
+  </script>
+
+  <script>
+    function detectIE() {
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf('MSIE ');
+      if (msie > 0) {
+          // IE 10 or older => return version number
+          return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+      }
+      var trident = ua.indexOf('Trident/');
+      if (trident > 0) {
+          // IE 11 => return version number
+          var rv = ua.indexOf('rv:');
+          return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+      }
+      var edge = ua.indexOf('Edge/');
+      if (edge > 0) {
+          // IE 12 => return version number
+          return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+      }
+      // other browser
+      return false;
+    }
+    if(detectIE() != false){
+      jQuery('body').addClass('withnowebgl');
+      // console.log("IE");
+    } else {
+      // console.log("not IE");
+    }
+
+    var IEchecked = false;
+    var webglchecked = false;
+    var mobilechecked = false;
+
+    if(detectIE() != false){
+      jQuery('body').addClass('withnowebgl');
+      IEchecked = true;
+      bar2 += 50;
+      document.getElementById("bar2").style.width = bar2 + "px";
+    } else {
+      IEchecked = true;
+      bar2 += 50;
+      document.getElementById("bar2").style.width = bar2 + "px";
+    }
+    if ((IEchecked==true) && (mobilechecked = true)){
+      bar2= 250;
+      document.getElementById("bar2").style.width = bar2 + "px";
+      document.getElementById("loading-background2").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
